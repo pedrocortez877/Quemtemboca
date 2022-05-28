@@ -1,0 +1,8 @@
+import { resolve } from 'path';
+
+export default{
+  'config': resolve(__dirname, 'src', 'Config', 'DbConfig.js'),
+  'models-path': resolve(__dirname, 'src', 'App', 'Models'),
+  'migrations-path':  resolve(__dirname, 'src', 'Database', 'Migrations'),
+  'seeders-path': resolve(__dirname, 'src', 'Database', 'Seeders'),
+};
