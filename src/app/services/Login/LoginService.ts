@@ -1,15 +1,17 @@
 import bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import UserModel from '../../models/UserModel';
+import { UserRepository } from '../../repositories/UserRepository';
 
 interface LoginProps{
   email: string;
   password: string;
 }
 
-export default{
+class LoginService{
+  constructor(private userRepository: UserRepository){}
+
   async login({ email, password }: LoginProps): Promise<String | null>{
-    const user = await UserModel.findOne({where: {Email: email}});
+    const user = await this.userRepository.getByEmail(email);
 
     if(user){
       const correctPass = bcrypt.compareSync(password, user.Password);
@@ -23,3 +25,5 @@ export default{
     return null;
   }
 }
+
+export {LoginService};
