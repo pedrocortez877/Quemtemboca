@@ -1,9 +1,34 @@
-import { DataTypes } from "sequelize/types";
+import { DataTypes, Model } from "sequelize/types";
 import { db } from "../configs/db";
 
-import { ProductsModel } from "./ProductsModel";
+import ProductsModel from "./ProductsModel";
 
-export const RestaurantsModel = db.define("Restaurants", {
+interface RestaurantAttributes{
+  Id: number;
+  Name: string;
+  FoodType: string;
+  Evaluation: number;
+  DeliveryTime: string;
+  DeliveryValue: number;
+  ProfileImage: string;
+  BackgroundImage: string;
+}
+
+export interface RestaurantInput extends Required<RestaurantAttributes>{};
+export interface RestaurantOutput extends Required<RestaurantAttributes>{};
+
+class RestaurantsModel extends Model<RestaurantAttributes, RestaurantInput> implements RestaurantAttributes{
+  Id: number;
+  Name: string;
+  FoodType: string;
+  Evaluation: number;
+  DeliveryTime: string;
+  DeliveryValue: number;
+  ProfileImage: string;
+  BackgroundImage: string;
+}
+
+RestaurantsModel.init({
   Id: {
     type: DataTypes.UUIDV4,
     primaryKey: true,
@@ -17,7 +42,7 @@ export const RestaurantsModel = db.define("Restaurants", {
     type: DataTypes.STRING(100),
     allowNull: false,
   },
-  Evalutation: {
+  Evaluation: {
     type: DataTypes.DECIMAL,
     allowNull: false,
   },
@@ -37,6 +62,11 @@ export const RestaurantsModel = db.define("Restaurants", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+},
+{
+  timestamps: true,
+  sequelize: db,
+  tableName: 'Restaurants'
 });
 
 //RELACIONAMENTO PRODUTOS X RESTAURANTES
@@ -46,3 +76,5 @@ RestaurantsModel.hasMany(ProductsModel, {
     allowNull: false,
   }
 });
+
+export default RestaurantsModel;

@@ -1,13 +1,34 @@
-import { DataTypes } from "sequelize/types";
+import { DataTypes, Model } from "sequelize/types";
 import { db } from "../configs/db";
 
-export const UserModel = db.define("Users", {
+interface UserAttributes{
+  Email: string;
+  Password: string;
+}
+
+export interface UserInput extends Required<UserAttributes>{};
+export interface UserOutput extends Required<UserAttributes>{};
+
+class UserModel extends Model<UserAttributes, UserInput> implements UserAttributes{
+  Email: string;
+  Password: string;
+};
+
+UserModel.init({
   Email: {
     type: DataTypes.STRING(100),
-    allowNull: false,
+    allowNull: false
   },
   Password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-})
+    type: DataTypes.TEXT,
+    allowNull: false
+  }
+},
+  {
+    timestamps: true,
+    sequelize: db,
+    tableName: 'Users'
+  }
+);
+
+export default UserModel;

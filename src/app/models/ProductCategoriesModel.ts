@@ -1,9 +1,22 @@
-import { DataTypes } from "sequelize/types";
+import { DataTypes, Model } from "sequelize/types";
 import { db } from "../configs/db";
 
-import { ProductsModel } from "./ProductsModel";
+import ProductsModel from "./ProductsModel";
 
-export const ProductCategoriesModel = db.define("ProductCategories", {
+interface ProductCategoriesAttributes{
+  Id: string;
+  Name: string;
+}
+
+export interface ProductCategoriesInput extends Required<ProductCategoriesAttributes>{};
+export interface ProductCategoriesOutput extends Required<ProductCategoriesAttributes>{};
+
+class ProductCategoriesModel extends Model<ProductCategoriesAttributes, ProductCategoriesInput> implements ProductCategoriesAttributes{
+  Id: string;
+  Name: string;
+};
+
+ProductCategoriesModel.init({
   Id: {
     type: DataTypes.UUIDV4,
     primaryKey: true,
@@ -13,6 +26,11 @@ export const ProductCategoriesModel = db.define("ProductCategories", {
     type: DataTypes.STRING(100),
     allowNull: false,
   },
+},
+{
+  timestamps: true,
+  sequelize: db,
+  tableName: 'Products'
 });
 
 //RELACIONAMENTO PRODUTOS X CATEGORIAS
@@ -22,3 +40,5 @@ ProductCategoriesModel.belongsTo(ProductsModel, {
     allowNull: false,
   }
 });
+
+export default ProductCategoriesModel;

@@ -1,10 +1,33 @@
-import { DataTypes } from "sequelize/types";
+import { DataTypes, Model } from "sequelize/types";
 import { db } from "../configs/db";
 
-import { ProductCategoriesModel } from "./ProductCategoriesModel";
-import { RestaurantsModel } from "./RestaurantsModel";
+import ProductCategoriesModel from "./ProductCategoriesModel";
+import RestaurantsModel from "./RestaurantsModel";
 
-export const ProductsModel = db.define("Products", {
+interface ProductAttributes{
+  Id: number;
+  Name: string;
+  Description: string;
+  Price: number;
+  IdCategory: number;
+  IdRestaurant: number;
+  Image: string;
+}
+
+export interface ProductInput extends Required<ProductAttributes>{};
+export interface ProductOutput extends Required<ProductAttributes>{};
+
+class ProductsModel extends Model<ProductAttributes, ProductInput> implements ProductAttributes{
+  Id: number;
+  Name: string;
+  Description: string;
+  Price: number;
+  IdCategory: number;
+  IdRestaurant: number;
+  Image: string;
+}
+
+ProductsModel.init({
   Id: {
     type: DataTypes.UUIDV4,
     primaryKey: true,
@@ -34,6 +57,11 @@ export const ProductsModel = db.define("Products", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+},
+{
+  timestamps: true,
+  sequelize: db,
+  tableName: 'Products'
 });
 
 //RELACIONAMENTO PRODUTOS X CATEGORIAS
@@ -51,3 +79,5 @@ ProductsModel.belongsTo(RestaurantsModel, {
     allowNull: false,
   }
 });
+
+export default ProductsModel;
