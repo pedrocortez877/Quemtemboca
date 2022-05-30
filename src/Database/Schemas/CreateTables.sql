@@ -50,3 +50,20 @@ CREATE TABLE public."Products"
         NOT VALID
 );
 
+CREATE TABLE public."Addresses"
+(
+    "Id" uuid NOT NULL DEFAULT uuid_generate_v4(),
+    "IdUser" uuid NOT NULL,
+    "Street" text NOT NULL,
+    "StreetNumber" integer NOT NULL,
+    "Neighborhood" text NOT NULL,
+    "City" text NOT NULL,
+    "ZipCode" text NOT NULL,
+    PRIMARY KEY ("IdUser"),
+    CONSTRAINT fk_address_user FOREIGN KEY ("IdUser")
+        REFERENCES public."Users" ("Id") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
