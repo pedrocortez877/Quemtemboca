@@ -6,3 +6,5 @@ import LoginValidator from '../validators/LoginValidator';
 const routes = Router();
 
 routes.post('/', LoginValidator, LoginController.login);
+
+export default routes;

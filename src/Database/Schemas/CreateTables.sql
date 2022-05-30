@@ -1,5 +1,6 @@
 CREATE TABLE public."Users"
 (
+  "Id" uuid NOT NULL DEFAULT uuid_generate_v4(),
   "Email" text NOT NULL,
   "Password" text NOT NULL,
   "Name" text NOT NULL

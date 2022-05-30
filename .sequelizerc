@@ -1,7 +1,7 @@
-import { resolve } from 'path'
+const { resolve } = require('path')
 
-export default {
-  config: resolve(__dirname, 'src', 'config', 'dbConfig.js'),
+module.exports = {
+  config: resolve(__dirname, 'src', 'app', 'configs', 'db.ts'),
   'models-path': resolve(__dirname, 'src', 'app', 'models'),
   'migrations-path': resolve(__dirname, 'src', 'database', 'migrations'),
   'seeders-path': resolve(__dirname, 'src', 'database', 'seeders'),

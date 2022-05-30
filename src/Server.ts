@@ -1,3 +1,4 @@
+import './app/configs/bootstrap';
 import server from './App';
 import { db } from './app/configs/db';
 

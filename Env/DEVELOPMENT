@@ -1,0 +1,15 @@
+PORT=8080
+BASE_HOST=localhost
+BASE_PATH=/api/quemtemboca
+
+SECRET=a31c3af3-5e2b-420b-81be-7ca964bde729
+
+DB_USER=postgres
+DB_PASSWORD=1234
+DB_NAME=QuemTemBoca
+DB_HOST=localhost
+DB_DIALECT=postgres
+DB_MIGRATIONS=src/database/migrations/*.ts
+DB_MIGRATIONS_DIR=src/database/migrations
+
+NODE_ENV=development

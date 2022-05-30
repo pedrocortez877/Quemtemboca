@@ -1,4 +1,5 @@
-import { DataTypes, Model } from "sequelize/types";
+
+import { Model, DataTypes } from "sequelize";
 import { db } from "../configs/db";
 
 import ProductsModel from "./ProductsModel";
