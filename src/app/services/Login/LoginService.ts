@@ -1,8 +1,6 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import ResponseTypes from '../../../types/ResponseTypes';
-
-import UserRepository from "../../repositories/UserRepository";
+import { sign } from 'jsonwebtoken';
+import UserModel from '../../models/UserModel';
 
 interface LoginProps{
   email: string;
@@ -10,30 +8,18 @@ interface LoginProps{
 }
 
 export default{
-  async login({ email, password }: LoginProps): Promise<ResponseTypes>{
-    const user = await UserRepository.getUser(email);
+  async login({ email, password }: LoginProps): Promise<String | null>{
+    const user = await UserModel.findOne({where: {Email: email}});
 
     if(user){
       const correctPass = bcrypt.compareSync(password, user.Password);
 
       if(correctPass){
-        const token = jwt.sign({ id: user.Id }, process.env.SECRET);
-        return {
-          statusCode: 200,
-          data: {
-            results: {
-              token
-            },
-          }
-        }
+        const token = sign({ id: user.Id }, process.env.SECRET);
+        return token
       }
     }
 
-    return {
-      statusCode: 400,
-      data: {
-        message: 'Usuário e/ou senha incorreto(s)'
-      }
-    }
+    return null;
   }
 }
