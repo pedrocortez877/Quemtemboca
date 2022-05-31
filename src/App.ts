@@ -10,8 +10,6 @@ const corsOptions: cors.CorsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
 }
 
-console.log(process.env.BASE_PATH);
-
 const app = express();
 
 app.use(cors(corsOptions));

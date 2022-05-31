@@ -1,6 +1,6 @@
-import './app/configs/bootstrap';
+import './configs/bootstrap';
 import server from './App';
-import { db } from './app/configs/db';
+import { db } from './configs/db';
 
 const port = process.env.PORT;
 const base_host = process.env.BASE_HOST;

@@ -6,7 +6,9 @@
   "author": "Pedro Cortez <pedrocortez877@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/Server.ts"
+    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/Server.ts",
+    "lint": "eslint \"src/**/*.{ts}\"",
+    "lint:fix": "eslint \"src/**/*.{ts}\" --quiet --fix"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
